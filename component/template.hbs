@@ -1,0 +1,95 @@
+<section class="horizontal-form">
+	<form>
+		<div class="container-fluid">
+
+			{{partial "host/add-common"}}
+		
+			{{!-- API key --}}
+			<div class="over-hr r-mb20">
+				<span>
+					1&amp;1 API key
+				</span>
+			</div>
+			<div class="row form-group">
+				<div class="col-md-2 form-label">
+					<label class="form-control-static">
+						API key
+					</label>
+				</div>
+				<div class="col-md-8">
+					{{input type="password" name="apiKey" classNames="form-control" placeholder="Your 1&1 API key." value=model.%%DRIVERNAME%%Config.apiKey}}
+				</div>
+				<p class="help-block">
+					To get your 1&amp;1 API key follow these <a href="https://www.1and1.com/cloud-community/develop/11-cloud-server-api/displaying-the-api-key/">instructions</a>.
+				</p>
+			</div>
+
+			{{!-- Data center (location) and OS image --}}
+			<div class="over-hr r-mb20">
+				<span>
+					Location, Size and OS
+				</span>
+			</div>
+			<div class="row form-group">
+				<div class="col-md-2 form-label">
+					<label class="form-control-static">
+						Location
+					</label>
+				</div>
+				<div class="col-md-8">
+					<select class="form-control" onchange={{action "selectDatacenter" value="target.value"}}>
+						{{#each datacenters as |datacenter|}}
+							<option value="{{datacenter.value}}" selected={{eq datacenter.value model.%%DRIVERNAME%%Config.datacenter}}>
+								{{datacenter.name}}
+							</option>
+						{{/each}}
+					</select>
+				</div>
+			</div>
+			<div class="row form-group">
+				<div class="col-md-2 form-label">
+					<label class="form-control-static">
+						Operating system
+					</label>
+				</div>
+				<div class="col-md-8">
+					<select class="form-control" onchange={{action "selectOS" value="target.value"}}>
+						{{#each images as |image|}}
+							<option value="{{image.value}}" selected={{eq image.value model.%%DRIVERNAME%%Config.os}}>
+								{{image.name}}
+							</option>
+						{{/each}}
+					</select>
+				</div>
+			</div>
+			<div class="row form-group">
+				<div class="col-md-2 form-label">
+					<label class="form-control-static">
+						Size
+					</label>
+				</div>
+				<div class="col-md-8">
+					<select class="form-control" onchange={{action "selectSize" value="target.value"}}>
+					{{#each sizes as |size|}}
+						<optgroup label="{{size.name}}">
+							<option value="{{size.value}}" selected={{eq size.value model.%%DRIVERNAME%%Config.size}}>
+								{{size.cores}} vCores | {{size.ram}} | {{size.disk}}
+							</option>
+						</optgroup>
+					{{/each}}
+					</select>
+				</div>
+			</div>
+		</div>
+
+		{{partial "host/add-options"}}
+
+		{{!-- Footer buttons --}}
+    <div class="footer-actions">
+      <div class="row">
+        {{top-errors errors=errors}}
+      </div>
+      {{save-cancel save="save" cancel="cancel"}}
+    </div>
+	</form>
+</section>

@@ -1,0 +1,22 @@
+{
+  "name": "ui-driver-oneandone",
+  "description": "1&1 Rancher UI driver for custom docker-machine drivers",
+  "main": "",
+  "authors": [
+    "1&1"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/1and1/ui-driver-oneandone",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "ember": "^2.9.1"
+  }
+}
