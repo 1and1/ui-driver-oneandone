@@ -1,9 +1,19 @@
-# ui-driver-oneandone
-1&1 Rancher UI driver for custom docker-machine drivers
+# 1&1 Rancher UI Driver for Custom Docker Machine Drivers
 
-## Setup
+## Table of Contents
+* [Introduction](#introduction)
+* [Installation](#installation)
+* [Development](#development)
+* [Building](#building)
+* [Usage](#usage)
 
-* Fork this repository into your own account as `ui-driver-DRIVERNAME`
+## Introduction
+
+This is a Rancher UI driver for the 1&1 Docker Machine driver. You will need to have Rancher installed and running before you can use the 1&1 Rancher UI Driver.
+
+## Installation
+
+* Fork [the Rancher UI Driver repository](https://github.com/StackPointCloud/ui-driver-oneandone) into your own account as `ui-driver-DRIVERNAME`
   * DRIVERNAME should be the name of the driver that you would give to `docker-machine create --driver`, e.g. "mycompany", "digitalocean", "vultr", etc.
 * Update the "name" in package.json to match
   * You should also update description, URLs, etc, but these aren't strictly required.
@@ -12,7 +22,7 @@
 
 ## Development
 
-This package contains a small web-server that will serve up the custom driver UI at `http://localhost:3000/component.js`.  You can run this while developing and point the Rancher settings there.
+This package contains a small web server that will serve up the custom driver UI at `http://localhost:3000/component.js`.  You can run this while developing and point the Rancher settings there.
 * `npm start`
 * The driver name can be optionally overridden: `npm start -- --name=DRIVERNAME`
 * The compiled files are viewable at http://localhost:3000.
@@ -23,10 +33,10 @@ This package contains a small web-server that will serve up the custom driver UI
 For other users to see your driver, you need to build it and host the output on a server accessible from their browsers.
 
 * `npm build`
-* Copy the contents of the `dist` directory onto a webserver.
+* Copy the contents of the `dist` directory onto a web server.
   * If your Rancher is configured to use HA or SSL, the server must also be available via HTTPS.
 
-## Using
+## Usage
 
 * Add a Machine Driver in Rancher (Admin tab -> Settings -> Machine Drivers)
   * Name: Your `DRIVERNAME` (see above).
