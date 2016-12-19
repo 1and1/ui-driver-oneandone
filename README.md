@@ -1,46 +1,61 @@
 # 1&1 Rancher UI Driver for Custom Docker Machine Drivers
 
-## Table of Contents
-* [Introduction](#introduction)
-* [Installation](#installation)
-* [Development](#development)
-* [Building](#building)
-* [Usage](#usage)
-
-## Introduction
-
-This is a Rancher UI driver for the 1&1 Docker Machine driver. You will need to have Rancher installed and running before you can use the 1&1 Rancher UI Driver.
-
 ## Installation
+To install this component, you will need a working instance of the Rancher Management Server. Instructions to set this up [can be found here](https://docs.rancher.com/rancher/v1.2/en/installing-rancher/installing-server/).
 
-* Fork [the Rancher UI Driver repository](https://github.com/StackPointCloud/ui-driver-oneandone) into your own account as `ui-driver-DRIVERNAME`
-  * DRIVERNAME should be the name of the driver that you would give to `docker-machine create --driver`, e.g. "mycompany", "digitalocean", "vultr", etc.
-* Update the "name" in package.json to match
-  * You should also update description, URLs, etc, but these aren't strictly required.
-* `npm install`
-* `bower install`
+For a quick set up, you can run the Rancher Management Server inside a docker container with the following command:
 
-## Development
+```
+docker run -d --restart=always -p 8080:8080 rancher/server
+```
 
-This package contains a small web server that will serve up the custom driver UI at `http://localhost:3000/component.js`.  You can run this while developing and point the Rancher settings there.
-* `npm start`
-* The driver name can be optionally overridden: `npm start -- --name=DRIVERNAME`
-* The compiled files are viewable at http://localhost:3000.
-* **Note:** The development server does not currently automatically restart when files are changed.
+It is always useful to rename a running Docker container.
 
-## Building
+```
+docker rename <container-id> rancher
+```
 
-For other users to see your driver, you need to build it and host the output on a server accessible from their browsers.
+To see the output logs for the running Rancher Management Server container:
 
-* `npm build`
-* Copy the contents of the `dist` directory onto a web server.
-  * If your Rancher is configured to use HA or SSL, the server must also be available via HTTPS.
+```
+docker logs -f rancher
+```
 
-## Usage
+### Requirements
+- A [1&1 API key](https://www.1and1.com/cloud-community/develop/11-cloud-server-api/displaying-the-api-key/) with full access rights. 
+- A link to the latest release of the 1&1 docker-machine driver for your platform. These can be [found here](https://github.com/1and1/docker-machine-driver-oneandone/releases) and are available for OSX, Linux and Windows (all 64bit). All you need to do is copy the link location, which should look something like ```https://github.com/1and1/docker-machine-driver-oneandone/releases/download/v1.1.1/docker-machine-driver-oneandone-linux-amd64-v1.1.1.tar.gz```.
+- The built component files for this module hosted on a web server accessible by your browser.
 
-* Add a Machine Driver in Rancher (Admin tab -> Settings -> Machine Drivers)
-  * Name: Your `DRIVERNAME` (see above).
-  * Download URL: The URL for the driver binary (e.g. `https://github.com/mycompany/docker-machine-mycompany/releases/download/v1.0.0/docker-machine-driver-mycompany-v1.0.0-linux-amd64.tar.gz`)
-  * Custom UI URL: The URL you uploaded the `dist` folder to, e.g. `https://github.com/mycompany/ui-driver-mycompany/releases/download/v1.0.0/component.js`)
-* Wait for the driver to become "Active"
-* Go to Infrastructure -> Hosts -> Add Host, your driver and custom UI should show up.
+### Building and hosting
+To build the component files, clone this repository and run the following commands:
+
+```
+$ npm install
+$ bower install
+$ npm run build
+```
+
+You will then need to copy the contents of the ```dist/``` directory to your webserver. There should be three files in total as follows:
+
+- component.css
+- component.js
+- logo.png
+
+**Note:** If your Rancher is configured to use HA or SSL, the server must also be available via HTTPS.
+
+### Installing via the Rancher Management Server UI
+- Go to ```Machine Drivers (Admin -> Machine Drivers)```
+- Click on the ```Add Machine Driver``` button and a modal drop down will appear.
+- Enter the URL for the 1&1 docker-machine driver in the ```Download URL``` field.
+- Enter the URL for the UI component driver JS in the ```Custom UI URL``` field. This should look something like ```http://example.com/dist/component.js```.
+- Wait for the machine driver to become active.
+
+## Using
+- Navigate to the Hosts section ```(Infrastructure -> Hosts)```
+- Click on the ```Add Host``` button and a new screen will appear that shows a list of hosting providers along the top.
+- Choose 1&1 and a new form will appear underneath the selection.
+- You will now be able to customise and create your server that can be managed through the Rancher Management Server.
+
+## Support, discussion and community
+
+Please submit any bugs, issues and feature requests to [1and1/ui-driver-oneandone](https://github.com/1and1/ui-driver-oneandone).
