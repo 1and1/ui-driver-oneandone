@@ -1,7 +1,7 @@
 {
   "name": "ui-driver-oneandone",
   "version": "1.0.0",
-  "description": "1&1 Rancher UI driver for custom docker-machine drivers",
+  "description": "1&1 Rancher UI Driver for Custom Docker Machine Drivers.",
   "scripts": {},
   "repository": {
     "type": "git",
