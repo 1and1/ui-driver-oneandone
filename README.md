@@ -1,4 +1,4 @@
-# 1&1 Rancher UI for the docker-machine driver
+# 1&1 Rancher UI Driver for Custom Docker Machine Drivers
 
 ## Installation
 To install this component, you will need a working instance of the Rancher Management Server. Instructions to set this up [can be found here](https://docs.rancher.com/rancher/v1.2/en/installing-rancher/installing-server/).
@@ -59,6 +59,3 @@ You will then need to copy the contents of the ```dist/``` directory to your web
 ## Support, discussion and community
 
 Please submit any bugs, issues and feature requests to [1and1/ui-driver-oneandone](https://github.com/1and1/ui-driver-oneandone).
-
-
-
