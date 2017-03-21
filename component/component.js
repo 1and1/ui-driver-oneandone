@@ -157,18 +157,19 @@ define('ui/components/machine/driver-%%DRIVERNAME%%/component',
 
 			bootstrap () {
 				let config = this.get('store').createRecord({
-					type: '%%DRIVERNAME%%Config'
-				});
+                    type: '%%DRIVERNAME%%Config'
+                });
 
-				this.set('model', this.get('store').createRecord({
-					type: 'machine',
-					'%%DRIVERNAME%%Config': config
-				}));
-			},
+				let type = 'host';
+                if (!this.get('useHost')) {
+                type = 'machine';
+                }
 
-			init () {
-				this._super(...arguments);
-				console.log('called init()');
+                this.set('model', this.get('store').createRecord({
+                    type: type,
+                    '%%DRIVERNAME%%Config': config
+                }));
+				this.set('editing', false);
 			},
 
 			validate () {
@@ -216,6 +217,11 @@ define('ui/components/machine/driver-%%DRIVERNAME%%/component',
                 cancel () {
                     // console.log('actions:cancel');
                 }
+			},
+			
+			init () {
+				this._super(...arguments);
+				console.log('called init()');
 			}
 		});
 	}
